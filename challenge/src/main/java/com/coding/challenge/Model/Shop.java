@@ -16,7 +16,7 @@ public class Shop implements Serializable{
     @SequenceGenerator(name = "shop_seq", sequenceName = "shop_seq", allocationSize = 1)
     private Long id;
     private String name;
-
+    private double price;
     @ManyToOne
     @JoinColumn(name = "dislikedId")
     @JsonBackReference
@@ -31,6 +31,12 @@ public class Shop implements Serializable{
 
    }
 
+   public Shop(Long id, String name, double price){
+     this.id=id;
+     this.name=name;
+     this.price=price;
+
+   }
     /**
      * @return Long return the id
      */
@@ -57,6 +63,49 @@ public class Shop implements Serializable{
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+
+    /**
+     * @return double return the price
+     */
+    public double getPrice() {
+        return price;
+    }
+
+    /**
+     * @param price the price to set
+     */
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    /**
+     * @return DislikedShops return the dislikedshops
+     */
+    public DislikedShops getDislikedshops() {
+        return dislikedshops;
+    }
+
+    /**
+     * @param dislikedshops the dislikedshops to set
+     */
+    public void setDislikedshops(DislikedShops dislikedshops) {
+        this.dislikedshops = dislikedshops;
+    }
+
+    /**
+     * @return LikedShops return the likedshops
+     */
+    public LikedShops getLikedshops() {
+        return likedshops;
+    }
+
+    /**
+     * @param likedshops the likedshops to set
+     */
+    public void setLikedshops(LikedShops likedshops) {
+        this.likedshops = likedshops;
     }
 
 }

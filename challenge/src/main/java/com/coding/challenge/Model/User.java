@@ -9,191 +9,106 @@ import java.util.*;
 public class User implements Serializable{
 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
-    @SequenceGenerator(name = "user_seq", sequenceName = "user_seq", allocationSize = 1)
-    private Long id;
-    private String password;
-    private String firstname;
-    private String lastname;
-    private String email;
-    private String numtel;
-    private boolean isValid;
-    private String status;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Long id;
+
+  private String firstName;
+  private String lastName;
+  private String email;
+  private String password;
+
+  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @JoinTable(
+          name = "users_roles",
+          joinColumns = @JoinColumn(
+                  name = "user_id", referencedColumnName = "id"),
+          inverseJoinColumns = @JoinColumn(
+                  name = "role_id", referencedColumnName = "id"))
+  private Collection<Role> roles;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<LikedShops> likedshops;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<DislikedShops> dislikedshops;
+public User(){
 
+}
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+    public User(String firstName, String lastName, String email, String password) {
+      this.firstName = firstName;
+      this.lastName = lastName;
+      this.email = email;
+      this.password = password;
+  }
 
-    public User(String status){
-          this.status=status;
-    }
-    public User(){}
+  public User(String firstName, String lastName, String email, String password, Collection<Role> roles) {
+      this.firstName = firstName;
+      this.lastName = lastName;
+      this.email = email;
+      this.password = password;
+      this.roles = roles;
+  }
 
+  public Long getId() {
+      return id;
+  }
 
-    public User(String password, String email) {
-        this.password = password;
-        this.email = email;
-    }
+  public void setId(Long id) {
+      this.id = id;
+  }
 
-    public User(String firstname, String lastname, String numtel,String email,  String adress, String password){
+  public String getFirstName() {
+      return firstName;
+  }
 
-        super();
-        this.firstname=firstname;
-        this.lastname=lastname;
-        this.email=email;
-        this.numtel=numtel;
+  public void setFirstName(String firstName) {
+      this.firstName = firstName;
+  }
 
+  public String getLastName() {
+      return lastName;
+  }
 
-    }
+  public void setLastName(String lastName) {
+      this.lastName = lastName;
+  }
 
+  public String getEmail() {
+      return email;
+  }
 
-    /**
-     * @return Long return the id
-     */
-    public Long getId() {
-        return id;
-    }
+  public void setEmail(String email) {
+      this.email = email;
+  }
 
-    /**
-     * @param id the id to set
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public String getPassword() {
+      return password;
+  }
 
-    /**
-     * @return String return the password
-     */
-    public String getPassword() {
-        return password;
-    }
+  public void setPassword(String password) {
+      this.password = password;
+  }
 
-    /**
-     * @param password the password to set
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
+  public Collection<Role> getRoles() {
+      return roles;
+  }
 
+  public void setRoles(Collection<Role> roles) {
+      this.roles = roles;
+  }
 
-    /**
-     * @return String return the firstname
-     */
-    public String getFirstname() {
-        return firstname;
-    }
-
-    /**
-     * @param firstname the firstname to set
-     */
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    /**
-     * @return String return the lastname
-     */
-    public String getLastname() {
-        return lastname;
-    }
-
-    /**
-     * @param lastname the lastname to set
-     */
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    /**
-     * @return String return the email
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * @param email the email to set
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    /**
-     * @return String return the numtel
-     */
-    public String getNumtel() {
-        return numtel;
-    }
-
-    /**
-     * @param numtel the numtel to set
-     */
-    public void setNumtel(String numtel) {
-        this.numtel = numtel;
-    }
-
-
-
-
-    /**
-     * @return String return the username
-     */
-    public String getUsername() {
-        return this.email;
-    }
-
-
-
-
-    /**
-     * @return boolean return the isValid
-     */
-    public boolean isIsValid() {
-        return isValid;
-    }
-
-    /**
-     * @param isValid the isValid to set
-     */
-    public void setIsValid(boolean isValid) {
-        this.isValid = isValid;
-    }
-
-
-    /**
-     * @return String return the status
-     */
-    public String getStatus() {
-        return status;
-    }
-
-    /**
-     * @param status the status to set
-     */
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    /**
-     * @return Set<Role> return the roles
-     */
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    /**
-     * @param roles the roles to set
-     */
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
+  @Override
+  public String toString() {
+      return "User{" +
+              "id=" + id +
+              ", firstName='" + firstName + '\'' +
+              ", lastName='" + lastName + '\'' +
+              ", email='" + email + '\'' +
+              ", password='" + "*********" + '\'' +
+              ", roles=" + roles +
+              '}';
+  }
 
 }

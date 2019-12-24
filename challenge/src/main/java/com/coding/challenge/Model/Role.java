@@ -14,59 +14,39 @@ import java.util.Set;
 @Table(name = "role")
 public class Role implements Serializable{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "role_id")
-    private Long roleId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Long id;
+  private String name;
 
-    @Column(name = "role")
-    private String role;
+  public Role() {
+  }
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+  public Role(String name) {
+      this.name = name;
+  }
 
+  public Long getId() {
+      return id;
+  }
 
-    /**
-     * @return Long return the roleId
-     */
-    public Long getRoleId() {
-        return roleId;
-    }
+  public void setId(Long id) {
+      this.id = id;
+  }
 
-    /**
-     * @param roleId the roleId to set
-     */
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
-    }
+  public String getName() {
+      return name;
+  }
 
-    /**
-     * @return String return the role
-     */
-    public String getRole() {
-        return role;
-    }
+  public void setName(String name) {
+      this.name = name;
+  }
 
-    /**
-     * @param role the role to set
-     */
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    /**
-     * @return Set<User> return the users
-     */
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    /**
-     * @param users the users to set
-     */
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
-
+  @Override
+  public String toString() {
+      return "Role{" +
+              "id=" + id +
+              ", name='" + name + '\'' +
+              '}';
+  }
 }
